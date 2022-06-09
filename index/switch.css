@@ -1,0 +1,29 @@
+.switch {
+	width: 40px;
+	height: 20px;
+	border-radius: 10px;
+	position: relative;
+	background: #67C23A;
+	cursor: pointer;
+	transition: all 400ms;
+	margin-left: 5px;
+}
+.switch .circle {
+	display: block;
+	width: 15px;
+	height: 15px;
+	background-color: #FFF;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(0px, -50%);
+	right: 3px;
+	transition: all 400ms;
+}
+.stop_car {
+	display: flex;
+}
+.btn-box {
+	display: flex;
+	justify-content: flex-end;
+}

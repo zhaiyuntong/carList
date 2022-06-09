@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="./switch.css">
+	<link rel="stylesheet" href="../carkey/jisuan.css">
+	<script type="text/javascript" src="./switch.js"></script>
+	<script type="text/javascript" src="../element/art-template.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.navigation {
+			text-align: center;
+		}
+		.put .mask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+		.put .form {
+			width: 500px;
+			background-color: #fff;
+			border-radius: 5px;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 10;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		.put_add .mask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+		.put_add .form {
+			width: 500px;
+			background-color: #fff;
+			border-radius: 5px;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 10;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		.more_car .mask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+		.more_car .form {
+			width: 500px;
+			background-color: #fff;
+			border-radius: 5px;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 10;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		.title {
+			font-size: 30px;
+			letter-spacing: 3px;
+		}
+
+		.add_owner{
+			margin-top: 10px;
+			margin-left: 10px;
+			/* width: 54px;
+			height: 34px; */
+		}
+	</style>
+
+	<!-- 渲染 -->
+	<script id="tpl-owner" type="text/html">
+		{{each $data}}
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td>{{$value.id}}</td>
+				<td>{{$value.name}}</td>
+				<td>{{$value.home_number}}</td>
+				<td>{{$value.phone_number}}</td>
+				<td>{{$value.park_lot}}</td>
+				<td>
+					{{if $value.park_state == '0'}}
+						<span>未停车</span>
+					{{else if $value.park_state == '1'}}
+						<span>已停满</span>
+					{{/if}}
+				</td>
+				<td>
+					{{each $value.carlist}}
+						<span>{{$value.license}}</span>
+					{{/each}}
+				</td>
+				<td>{{$value.create_time | dateFormat}}</td>
+				<td>{{$value.update_time | dateFormat}}</td>
+				<td>
+					<button class="btn btn-primary niubi" data-index="{{$index}}">编辑</button>
+					<button class="btn btn-danger" data-index="{{$index}}">删除</button>
+					<button class="btn btn-primary more_operation" data-index="{{$index}}">更多操作</button>
+				</td>
+			</tr>
+		{{/each}}
+	</script>
+</head>
+<body>
+	<button class="btn btn-primary add_owner">添加用户</button>
+	<table class="owner table table-hover">
+		<thead>
+			<tr>
+				<th>
+					<input type="checkbox">
+					<span>全选</span>
+				</th>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>房号</th>
+				<th>手机号</th>
+				<th>车位号</th>
+				<th>车位状态</th>
+				<th>车辆</th>
+				<th>创建时间</th>
+				<th>最后更新时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation" class="navigation" id="navigation">
+	  	<ul class="pagination" id="navigation_ul">
+	    	<li>
+	      		<a href="javascript:;" aria-label="Previous">
+	        	<span aria-hidden="true">&laquo;</span>
+	      		</a>
+	    	</li>
+		    <li>
+		      	<a href="javascript:;" aria-label="Next">
+		        	<span aria-hidden="true">&raquo;</span>
+		      	</a>
+		    </li>
+	  	</ul>
+	</nav>
+
+	<!-- 编辑按钮 -->
+	<div class="put" id="put" style="display: none;">
+		<div class="mask"></div>
+		<div class="form">
+			<div class="form-group">
+			    <label for="username">姓名</label>
+			    <input type="text" class="form-control" id="username" placeholder="请输入姓名">
+		  	</div>
+			<div class="form-group">
+			    <label for="home_number">门牌号</label>
+			    <input type="text" class="form-control" id="home_number" placeholder="请输入门牌号">
+			</div>
+		  	<div class="form-group">
+		    	<label for="phone_number">手机号</label>
+			    <input type="text" class="form-control" id="phone_number" placeholder="请输入手机号">
+		  	</div>
+		  	<div class="form-group">
+		    	<label for="park_lot">车位号</label>
+			    <input type="text" class="form-control" id="park_lot" placeholder="请输入车位号">
+		  	</div>
+		  	<div class="form-group">
+		    	<label>车位状态</label>
+		    	<div class="stop_car"></div>
+		  	</div>
+		  	<div class="form-group btn-box">
+				<button class="btn btn-primary" id="enter">确认</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			  	<button class="btn btn-default" id="cancel">取消</button>
+		  	</div>
+		</div>
+	</div>
+
+	<!-- 添加用户 -->
+	<div class="put_add" style="display: none;">
+		<div class="mask"></div>
+		<div class="form">
+			<div class="form-group">
+			    <label for="username">姓名</label>
+			    <input type="text" class="form-control username" placeholder="请输入姓名">
+		  	</div>
+			<div class="form-group">
+			    <label for="home_number">门牌号</label>
+			    <input type="text" class="form-control home_number"  placeholder="请输入门牌号">
+			</div>
+		  	<div class="form-group">
+		    	<label for="phone_number">手机号</label>
+			    <input type="text" class="form-control phone_number" placeholder="请输入手机号">
+		  	</div>
+		  	<div class="form-group">
+		    	<label for="park_lot">车位号</label>
+			    <input type="text" class="form-control park_lot" placeholder="请输入车位号">
+		  	</div>
+		  	<div class="form-group">
+		    	<label>车位状态</label>
+		    	<div class="stop_car">
+		    		<!-- <p class="stop_car_title">未停车</p> -->
+				</div>
+		  	</div>
+		  	<div class="form-group btn-box" id="bottom_buttom">
+				<button class="btn btn-primary" id="add_enter">确认</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			  	<button class="btn btn-default" id="cancel_two">取消</button>
+		  	</div>
+		</div>
+	</div>
+
+	<!-- 更多操作 -->
+	<div class="more_car" style="display:none;">
+		<div class="mask"></div>
+		<div class="form">
+			<div class="form-group">
+			    <label for="username">姓名 : <span class="more_name"></span></label>
+		  	</div>
+			<div class="form-group">
+			    <label for="home_number">门牌号 :<span class="more_home"></span></label>
+			</div>
+		  	<div class="form-group">
+		    	<label for="phone_number">手机号 :<span class="more_number"></span></label>
+		  	</div>
+		  	<div class="form-group">
+		    	<label for="park_lot">车位号 :<span class="more_lot"></span></label>
+		  	</div>
+		  	<!-- <div class="form-group">
+		    	<label>车位状态</label>
+		    	<div class="stop_car"></div>
+		  	</div> -->
+		  	<div class="form-group">
+		    	<label>车牌号 :</label>
+				<div class="cont">
+					<div class="top">
+						<div class="inp">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+							<input type="text">
+						</div>
+					</div>
+					<div class="keyborad_big">
+						<div class="keyboard">
+							<div class="kelong">粤</div>
+						</div>
+					</div>
+					<div class="keyborad_two">
+						<div class="num"></div>
+						<div class="letter"></div>
+						<div class="han">
+							<div class="kelong_two">港</div>
+							<div class="kelong_two">澳</div>
+							<div class="kelong_two">学</div>
+							<div class="kelong_two">领</div>
+						</div>
+					</div>
+				</div>
+
+
+		  	</div>
+		  	<div class="form-group btn-box">
+				<button class="btn btn-primary" id="more_enter">确认</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			  	<button class="btn btn-default" id="more_cancel">取消</button>
+		  	</div>
+		</div>
+	</div>
+
+	<script src="./index.js"></script>
+	<script src="../carkey/jisuan.js"></script>
+</body>
+</html>

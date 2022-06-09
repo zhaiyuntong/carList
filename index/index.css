@@ -1,0 +1,157 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.top {
+    display: flex;
+    border-bottom: 2px solid darkgray;
+}
+
+.top>div {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: white;
+    margin: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color:#337ab7;
+}
+
+.top>div:hover{
+    background-color: lightseagreen;
+}
+
+.add {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 800px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.add_form>div>span {
+    display: block;
+    width: 150px;
+    color: black;
+    line-height: 30px;
+    font-size: 20px;
+    color: rgba(1, 1, 1);
+}
+
+.add_form input {
+    outline: none;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid darkgray;
+    padding-left: 10px;
+}
+
+.add_form>div {
+    margin: 30px 100px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.add_form .get {
+    width: 200px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.get div {
+    background: #337ab7;
+    border-radius: 50%;
+    width: 200px;
+    height: 40px;
+    margin: 0 10px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border: 1px solid lightgray;
+}
+.get div:hover{
+    background-color: lightseagreen;
+}
+
+.mengban {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .2);
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+tr td .btn{
+    /* border-radius: 50%; */
+    background-color: #337ab7;
+}
+/* tr td .btn-danger{} */
+
+#pageone{
+    text-align: center;
+    
+}
+
+.alert-success{
+    display: none;
+}
+.bitian{
+    position: absolute;
+    color: red;
+    text-align: center;
+    top: 100%;
+    left: 50%;
+    display: none;
+}
+
+.navigation {
+    text-align: center;
+}
+.put .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.put .form {
+    width: 500px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.title {
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+
+#bottom_buttom{
+    margin-top: 200px;
+}
+
+.put_add{
+     height: 800px !important;
+}
+.more_car span{
+    padding-left: 20px;
+}
